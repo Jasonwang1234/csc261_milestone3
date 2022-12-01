@@ -1,4 +1,4 @@
-import {Button, Space, Table} from 'antd'
+import {Button, Col, Drawer, Form, Input, Row, Select, Space, Table} from 'antd'
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import {
@@ -8,6 +8,7 @@ import {
     ProFormSelect,
     ProFormText,
 } from '@ant-design/pro-components';
+import {useState} from "react";
 
 
 
@@ -20,8 +21,15 @@ function Database() {
 
     // const {  DownloadOutlined  } = icons;
 
+    const [open, setOpen] = useState(false)
 
+    const showDrawer = () => {
+        setOpen(true);
+    };
 
+    const onClose = () => {
+        setOpen(false);
+    };
 
     const GE_data = [
         {
@@ -259,9 +267,49 @@ function Database() {
                         <Table dataSource={GE_data} columns={GE_column} bordered />
                         <Space wrap>
                             <Button type="primary" size={"large"}>Update/Refresh</Button>
-                            <Button type="primary" size={"large"}>Add Row</Button>
-                            
-                            <Button type="primary" size={"large"}>Delete Row</Button>
+                            <Button type="primary" onClick={showDrawer} size={"large"}>Add Row</Button>
+                            <Drawer
+                                title="Adding New Row"
+                                width={520}
+                                onClose={onClose}
+                                open={open}
+                                bodyStyle={{ paddingBottom: 80 }}
+                                extra={
+                                    <Space>
+                                        <Button onClick={onClose}>Cancel</Button>
+                                        <Button onClick={onClose} type="primary">
+                                            Submit
+                                        </Button>
+                                    </Space>
+                                }
+                            >
+                                <Form layout="vertical" hideRequiredMark>
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <Form.Item
+                                                name="Patient ID"
+                                                label="Name"
+                                                rules={[{ required: true, message: 'Please enter user name' }]}
+                                            >
+                                                <Input placeholder="Please enter user name" />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <Form.Item
+                                                name="approver"
+                                                label="Approver"
+                                                rules={[{ required: true, message: 'Please choose the approver' }]}
+                                            >
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                </Form>
+                            </Drawer>
+                                <Button type="primary" size={"large"}>Delete Row</Button>
                         </Space>
                     </div>
 
