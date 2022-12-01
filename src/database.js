@@ -1,6 +1,15 @@
-import { Table } from 'antd'
+import {Button, Space, Table} from 'antd'
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
+import {
+    DrawerForm,
+    ProForm,
+    ProFormDateRangePicker,
+    ProFormSelect,
+    ProFormText,
+} from '@ant-design/pro-components';
+
+
 
 
 function Database() {
@@ -8,6 +17,10 @@ function Database() {
     // function getRandomInt(max) {
     //     return Math.floor(Math.random() * max);
     // }
+
+    // const {  DownloadOutlined  } = icons;
+
+
 
 
     const GE_data = [
@@ -50,6 +63,37 @@ function Database() {
     ];
 
     const A_data = [
+        {
+            key: "1",
+            appointment_id: "1",
+            doctor_name: "Doctor example 0001",
+            phone_number: "202-555-0111",
+            start_time: "12/12/2012 13:23",
+            end_time: "12/12/2012/ 13:33",
+            room_num: "102",
+            patient_id: "1"
+        },
+        {
+            key: "2",
+            appointment_id: "2",
+            doctor_name: "Doctor example 0023",
+            phone_number: "202-555-0123",
+            start_time: "12/13/2012 13:30",
+            end_time: "12/13/2012/ 14:00",
+            room_num: "102",
+            patient_id: "2"
+        },
+        {
+            key: "3",
+            appointment_id: "3",
+            doctor_name: "Doctor example 0005",
+            phone_number: "202-555-0191",
+            start_time: "12/10/2012 11:30",
+            end_time: "12/10/2012/ 12:33",
+            room_num: "202",
+            patient_id: "2"
+        },
+
 
     ];
     const A_column = [
@@ -69,9 +113,131 @@ function Database() {
             key: 'phone_number',
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'Start Time',
+            dataIndex: 'start_time',
+            key: 'start_time',
+        },
+        {
+            title: 'End Time',
+            dataIndex: 'end_time',
+            key: 'end_time',
+        },
+        {
+            title: 'Room Number',
+            dataIndex: 'room_num',
+            key: 'room_num',
+        },
+        {
+            title: 'Patient',
+            dataIndex: 'patient_id',
+            key: 'patient_id',
+        },
+    ];
+
+    const room_data = [
+        {
+            key: "1",
+            building_name: "Aether",
+            room_id: "102",
+            room_type: "Medical-Surgical Patient Room",
+            under_construct: "No",
+            person_in_charge: "Doctor Example 2",
+        },
+        {
+            key: "2",
+            building_name: "Aether",
+            room_id: "202",
+            room_type: "Medical-Surgical Patient Room",
+            under_construct: "No",
+            person_in_charge: "Doctor Example 1",
+        },
+        {
+            key: "3",
+            building_name: "Discord",
+            room_id: "302",
+            room_type: "Behavioral and Mental Health Room",
+            under_construct: "Yes",
+            person_in_charge: "Doctor Example 3",
+        },
+    ];
+    const room_column = [
+        {
+            title: 'Building Name',
+            dataIndex: 'building_name',
+            key: 'building_name',
+        },
+        {
+            title: 'Room ID',
+            dataIndex: 'room_id',
+            key: 'room_id',
+        },
+        {
+            title: 'Room Type',
+            dataIndex: 'room_type',
+            key: 'room_type',
+        },
+        {
+            title: 'Under Construction',
+            dataIndex: 'under_construct',
+            key: 'under_construct',
+        },
+        {
+            title: 'Person in Charge',
+            dataIndex: 'person_in_charge',
+            key: 'person_in_charge',
+        },
+    ];
+
+    const trans_data = [
+        {
+            key: "1",
+            patient_id: "1",
+            transaction_id: "0001",
+            transaction_completion: "Yes",
+            transaction_amount: "600.00",
+            insurance: "Insurance Company A",
+            transaction_completion_time: "12/12/2012/ 13:40"
+        },
+        {
+            key: "1",
+            patient_id: "2",
+            transaction_id: "0002",
+            transaction_completion: "Yes",
+            transaction_amount: "100.00",
+            insurance: "Insurance Company B",
+            transaction_completion_time: "12/13/2012/ 16:20"
+        }
+    ];
+    const trans_column = [
+        {
+            title: 'Patient ID',
+            dataIndex: 'patient_id',
+            key: 'patient_id',
+        },
+        {
+            title: 'Transaction ID',
+            dataIndex: 'transaction_id',
+            key: 'transaction_id',
+        },
+        {
+            title: 'Transaction Completion',
+            dataIndex: 'transaction_completion',
+            key: 'transaction_completion',
+        },
+        {
+            title: 'Transaction Amount',
+            dataIndex: 'transaction_amount',
+            key: 'transaction_amount',
+        },
+        {
+            title: 'Insurance',
+            dataIndex: 'insurance',
+            key: 'insurance',
+        },
+        {
+            title: 'Transaction Completion Time',
+            dataIndex: 'transaction_completion_time',
+            key: 'transaction_completion_time',
         },
     ];
 
@@ -89,12 +255,47 @@ function Database() {
 
                 </TabList>
                 <TabPanel>
-                    <Table dataSource={GE_data} columns={GE_column} />
+                    <div>
+                        <Table dataSource={GE_data} columns={GE_column} bordered />
+                        <Space wrap>
+                            <Button type="primary" size={"large"}>Update/Refresh</Button>
+                            <Button type="primary" size={"large"}>Add Row</Button>
+                            
+                            <Button type="primary" size={"large"}>Delete Row</Button>
+                        </Space>
+                    </div>
 
                 </TabPanel>
                 <TabPanel>
-                    <div><p>Testing Peach</p></div>
+                    <div>
+                        <Table dataSource={A_data} columns={A_column} bordered />
+                        <Space wrap>
+                            <Button type="primary" size={"large"}>Update/Refresh</Button>
+                            <Button type="primary" size={"large"}>Add Row</Button>
+                            <Button type="primary" size={"large"}>Delete Row</Button>
+                        </Space>
+                    </div>
                 </TabPanel>
+                <TabPanel>
+                    <div>
+                        <Table dataSource={room_data} columns={room_column} bordered />
+                        <Space wrap>
+                            <Button type="primary" size={"large"}>Update/Refresh</Button>
+                            <Button type="primary" size={"large"}>Add Row</Button>
+                            <Button type="primary" size={"large"}>Delete Row</Button>
+                        </Space>
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                    <div>
+                        <Table dataSource={trans_data} columns={trans_column} bordered />
+                        <Space wrap>
+                            <Button type="primary" size={"large"}>Update/Refresh</Button>
+                            <Button type="primary" size={"large"}>Add Row</Button>
+                            <Button type="primary" size={"large"}>Delete Row</Button>
+                        </Space>
+                    </div>
+                    </TabPanel>
             </Tabs>
 
         </div>
